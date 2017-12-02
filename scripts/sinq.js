@@ -26,11 +26,13 @@ var sinq = (function() {
   }
 
   // task => {
-  //    payload: asyncTask,
+  //    payload: {
+  //      asyncTask: asyncTask
+  //    },
   //    callback: Func
   // }
   function execute(task) {
-    payload.asyncTask()
+    task.payload.asyncTask()
       .then(function(data) {
         console.log('done with data: ', data);
         task.callback(data);
