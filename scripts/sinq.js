@@ -34,11 +34,11 @@ var sinq = (function() {
     $.get(url).done(function(data) {
       console.log('done with data: ', data);
       task.callback();
-      unlock();
     }).failed(function() {
       console.error('ERROR in execute');
     }).always(function() {
       console.log('execution done');
+      unlock();
     });
   }
 
