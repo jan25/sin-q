@@ -26,20 +26,22 @@ var sinq = (function() {
   }
 
   // task => {
-  //    payload: {}
+  //    payload: asyncTask,
   //    callback: Func
   // }
   function execute(task) {
-    var url = payload.url;
-    $.get(url).done(function(data) {
-      console.log('done with data: ', data);
-      task.callback();
-    }).failed(function() {
-      console.error('ERROR in execute');
-    }).always(function() {
-      console.log('execution done');
-      unlock();
-    });
+    payload.asyncTask()
+      .then(function(data) {
+        console.log('done with data: ', data);
+        task.callback(data);
+      })
+      .catch(function(data) {
+        console.error('ERROR in execute');
+      })
+      .finally(function() {
+        console.log('execution done');
+        unlock();
+      }.bind(this));
   }
 
   function startConsumingQueue() {
